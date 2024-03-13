@@ -1,2 +1,2 @@
 # PayDev
-A simple but efficient and realistic payment gateway
+A Developer's World Wide Bank
