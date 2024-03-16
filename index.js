@@ -2,6 +2,7 @@ import express from 'express';
 
 import { createTable } from './repositories/user-repositories.js';
 import { getAllUsers, getUserLogged, registerNewAccount, updateUserAccount, deleteUserAccount } from './controllers/user-controller.js';
+import { sendMoneyById } from './controllers/transaction-controller.js'
 
 const server = express();
 const PORT = 5001;
@@ -22,3 +23,5 @@ server.get('/users/:id', async (req, res) => await getUserLogged(req, res));
 server.post('/users', async (req, res) => await registerNewAccount(req, res));
 server.put('/users/:id', async (req, res) => await updateUserAccount(req, res));
 server.delete('/users/:id', async (req, res) => await deleteUserAccount(req, res));
+
+server.post('/transaction/:id', async (req, res) => await sendMoneyById(req, res));

@@ -1,6 +1,4 @@
-import express from 'express';
-
-import { createTable, createUser, getUsers, getUserById, updateUser, deleteUser } from '../repositories/user-repositories.js';
+import { createUser, getUsers, getUserById, updateUser, deleteUser } from '../repositories/user-repositories.js';
 import { User } from '../models/user.js';
 
 export async function getAllUsers(req, res) {
@@ -9,7 +7,7 @@ export async function getAllUsers(req, res) {
         res.send(users);
     }
     catch (error) {
-        res.statusCode(404);
+        res.send({message: 'Any users has been found!', statusCode: 404});
     }
 }
 
@@ -17,10 +15,11 @@ export async function getUserLogged(req, res) {
     try {
         const { id } = req.params;
         const user = await getUserById(id);
-        res.send(user);
+
+        res.send(user[0]);
     }
     catch (error) {
-        res.send(error);
+        res.send({message: 'User not found!', statusCode: 404});
     }
 }
 
@@ -29,6 +28,10 @@ export async function registerNewAccount(req, res) {
         const { name, email, password } = req.body;
 
         const user = new User();
+
+        if(!name || !email || !password) {
+            return res.send({message: 'All the fields are required!', statusCode: 400});
+        }
 
         user.name = name;
         user.email = email;
