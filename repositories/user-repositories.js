@@ -14,13 +14,13 @@ export async function createUser(user) {
 
 export async function getUsers() {
     return openDb().then(db => { // Adicionando o retorno para a Promise ser propagada
-        return db.all('SELECT name, email, balance FROM User');
+        return db.all('SELECT id, name, email, balance FROM User');
     })
 }
 
 export async function getUserById(id) {
     return openDb().then(db => { // Adicionando o retorno para a Promise ser propagada
-        return db.all('SELECT name, email, balance FROM User WHERE id = ?', [id]);
+        return db.all('SELECT id, name, email, balance FROM User WHERE id = ?', [id]);
     })
 }
 
