@@ -1,0 +1,31 @@
+package dev.paydev.paydev.repository.services;
+
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import dev.paydev.paydev.domain.user.User;
+import dev.paydev.paydev.repository.contract.BalanceRepository;
+import dev.paydev.paydev.repository.contract.UserRepository;
+import dev.paydev.paydev.utils.exception.ResourceNotFoundException;
+
+@Service
+public class BalanceService {
+    private final UserRepository _userRepository;
+
+    public BalanceService(UserRepository userRepository) {
+        this._userRepository = userRepository;
+    }
+
+    public User updateUserBalance(Long userId, double ammount) {
+        User user = _userRepository.findById(userId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Oh no, that User haven't been found!"));
+
+        double userNewBalanceValue = user.getBalance() + ammount;
+
+        user.setBalance(userNewBalanceValue);
+        _userRepository.save(user);
+
+        return user;
+    }
+}
