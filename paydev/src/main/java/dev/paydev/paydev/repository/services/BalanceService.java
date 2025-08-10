@@ -2,12 +2,10 @@ package dev.paydev.paydev.repository.services;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import dev.paydev.paydev.domain.user.User;
-import dev.paydev.paydev.repository.contract.BalanceRepository;
 import dev.paydev.paydev.repository.contract.UserRepository;
 import dev.paydev.paydev.utils.exception.ResourceNotFoundException;
 

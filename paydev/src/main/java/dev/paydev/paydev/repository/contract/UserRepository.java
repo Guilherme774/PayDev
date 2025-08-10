@@ -8,10 +8,4 @@ import dev.paydev.paydev.domain.user.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     
-
-
-    // public boolean findUserByEmail(String email) {
-        
-    //     return true;
-    // }
 }
