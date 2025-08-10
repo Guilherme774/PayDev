@@ -8,7 +8,6 @@ import dev.paydev.paydev.domain.user.User;
 import dev.paydev.paydev.repository.services.BalanceService;
 import dev.paydev.paydev.repository.services.UserService;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -38,6 +38,12 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User userCreated = _userService.createUser(user);
         return ResponseEntity.ok(userCreated);
+    }
+
+    @GetMapping("balance/{id}")
+    public ResponseEntity<Object> getUserBalance(@PathVariable Long id) {
+        Object userBalance = _balanceService.GetUserBalance(id);
+        return ResponseEntity.ok(userBalance);
     }
 
     @PutMapping("balance")
