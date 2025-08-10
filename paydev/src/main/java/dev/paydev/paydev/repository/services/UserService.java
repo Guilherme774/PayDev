@@ -1,7 +1,5 @@
 package dev.paydev.paydev.repository.services;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import dev.paydev.paydev.domain.user.User;

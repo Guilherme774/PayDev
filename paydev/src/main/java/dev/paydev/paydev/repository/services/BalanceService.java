@@ -1,11 +1,11 @@
 package dev.paydev.paydev.repository.services;
 
-import java.util.Optional;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import dev.paydev.paydev.domain.user.User;
-import dev.paydev.paydev.repository.contract.BalanceRepository;
 import dev.paydev.paydev.repository.contract.UserRepository;
 import dev.paydev.paydev.utils.exception.ResourceNotFoundException;
 
@@ -15,6 +15,16 @@ public class BalanceService {
 
     public BalanceService(UserRepository userRepository) {
         this._userRepository = userRepository;
+    }
+
+    public Map<String, Object> GetUserBalance(Long id) {
+        User user = _userRepository.findById(id)
+                        .orElseThrow(() -> new ResourceNotFoundException("Oh no, that User haven't been found"));
+
+        Map<String, Object> userBalance = new LinkedHashMap<>();
+        userBalance.put("balance", user.getBalance());
+
+        return userBalance;
     }
 
     public User updateUserBalance(Long userId, double ammount) {
