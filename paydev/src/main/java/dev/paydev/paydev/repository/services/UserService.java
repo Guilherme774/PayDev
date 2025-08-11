@@ -17,12 +17,12 @@ public class UserService {
 
     public User getUser(Long id) {
         return _userRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+            .orElseThrow(() -> new ResourceNotFoundException("Oh no, that User haven't been found!"));
     }
 
     public User createUser(User user) {
         if(user.getEmail() == null || user.getName() == null) {
-            throw new UserRegisterExceptionHandler("All the fields are required!");
+            throw new UserRegisterExceptionHandler("Wait a minute, all the fields are required!");
         }
 
         return _userRepository.save(user);
@@ -30,7 +30,7 @@ public class UserService {
 
     public void DeleteUserAccount(Long id) {
         if(!_userRepository.existsById(id)) {
-            throw new ResourceNotFoundException("User not found!");
+            throw new ResourceNotFoundException("Oh no, that User haven't been found!");
         }
 
         _userRepository.deleteById(id);
