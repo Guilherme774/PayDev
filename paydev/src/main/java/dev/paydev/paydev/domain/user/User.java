@@ -1,5 +1,6 @@
 package dev.paydev.paydev.domain.user;
 
+import dev.paydev.paydev.utils.exception.TransactionExceptionHandler;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +26,10 @@ public class User {
         this.balance = 0.0;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -45,7 +50,22 @@ public class User {
         return balance;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public void creditToUserBalance(double ammount) {
+        if(ammount <= 0) {
+            throw new TransactionExceptionHandler("Hey, that value is invalid to realize that transaction!");
+        }
+
+        this.balance += ammount;
+    }
+
+    public void debitToUserBalance(double ammount) {
+        if(this.balance < ammount) {
+            throw new TransactionExceptionHandler("Oh no, You don't have enough funds to complete this transaction");
+        }
+        if(ammount <= 0) {
+            throw new TransactionExceptionHandler("Hey, that value is invalid to realize that transaction!");
+        }
+
+        this.balance -= ammount;
     }
 }

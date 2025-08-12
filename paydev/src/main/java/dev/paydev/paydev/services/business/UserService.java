@@ -1,16 +1,15 @@
-package dev.paydev.paydev.repository.services;
-
-import java.util.Optional;
+package dev.paydev.paydev.services.business;
 
 import org.springframework.stereotype.Service;
 
 import dev.paydev.paydev.domain.user.User;
-import dev.paydev.paydev.repository.contract.UserRepository;
+import dev.paydev.paydev.repository.UserRepository;
+import dev.paydev.paydev.services.contract.IUserService;
 import dev.paydev.paydev.utils.exception.ResourceNotFoundException;
 import dev.paydev.paydev.utils.exception.UserRegisterExceptionHandler;
 
 @Service
-public class UserService {
+public class UserService implements IUserService {
     private final UserRepository _userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -19,12 +18,12 @@ public class UserService {
 
     public User getUser(Long id) {
         return _userRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+            .orElseThrow(() -> new ResourceNotFoundException("Oh no, that User haven't been found!"));
     }
 
     public User createUser(User user) {
         if(user.getEmail() == null || user.getName() == null) {
-            throw new UserRegisterExceptionHandler("All the fields are required!");
+            throw new UserRegisterExceptionHandler("Wait a minute, all the fields are required!");
         }
 
         return _userRepository.save(user);
@@ -32,7 +31,7 @@ public class UserService {
 
     public void DeleteUserAccount(Long id) {
         if(!_userRepository.existsById(id)) {
-            throw new ResourceNotFoundException("User not found!");
+            throw new ResourceNotFoundException("Oh no, that User haven't been found!");
         }
 
         _userRepository.deleteById(id);
