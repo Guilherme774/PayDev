@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.paydev.paydev.domain.ViewModels.UserBalanceViewModel;
 import dev.paydev.paydev.domain.user.User;
-import dev.paydev.paydev.repository.services.BalanceService;
+import dev.paydev.paydev.services.contract.IBalanceService;
 
 @RestController
 @RequestMapping("/api/v1/balance")
 public class BalanceController {
-    private final BalanceService _balanceService;
+    private final IBalanceService _balanceService;
 
-    public BalanceController(BalanceService balanceService) {
+    public BalanceController(IBalanceService balanceService) {
         this._balanceService = balanceService;
     }
 

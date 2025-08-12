@@ -1,14 +1,15 @@
-package dev.paydev.paydev.repository.services;
+package dev.paydev.paydev.services.business;
 
 import org.springframework.stereotype.Service;
 
 import dev.paydev.paydev.domain.user.User;
-import dev.paydev.paydev.repository.contract.UserRepository;
+import dev.paydev.paydev.repository.UserRepository;
+import dev.paydev.paydev.services.contract.IUserService;
 import dev.paydev.paydev.utils.exception.ResourceNotFoundException;
 import dev.paydev.paydev.utils.exception.UserRegisterExceptionHandler;
 
 @Service
-public class UserService {
+public class UserService implements IUserService {
     private final UserRepository _userRepository;
 
     public UserService(UserRepository userRepository) {

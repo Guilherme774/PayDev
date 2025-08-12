@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.paydev.paydev.domain.user.User;
-import dev.paydev.paydev.repository.services.UserService;
+import dev.paydev.paydev.services.contract.IUserService;
 
 
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserController {
-    private final UserService _userService;
+    private final IUserService _userService;
 
-    public UserController(UserService userService) {
+    public UserController(IUserService userService) {
         this._userService = userService;
     }
 

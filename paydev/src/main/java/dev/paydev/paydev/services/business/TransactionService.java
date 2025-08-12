@@ -1,4 +1,4 @@
-package dev.paydev.paydev.repository.services;
+package dev.paydev.paydev.services.business;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -9,13 +9,14 @@ import org.springframework.stereotype.Service;
 import dev.paydev.paydev.domain.ViewModels.TransactionViewModel;
 import dev.paydev.paydev.domain.transaction.Transaction;
 import dev.paydev.paydev.domain.user.User;
-import dev.paydev.paydev.repository.contract.TransactionRepository;
-import dev.paydev.paydev.repository.contract.UserRepository;
+import dev.paydev.paydev.repository.TransactionRepository;
+import dev.paydev.paydev.repository.UserRepository;
+import dev.paydev.paydev.services.contract.ITransactionService;
 import dev.paydev.paydev.utils.exception.ResourceNotFoundException;
 import dev.paydev.paydev.utils.exception.TransactionExceptionHandler;
 
 @Service
-public class TransactionService {
+public class TransactionService implements ITransactionService {
     private final UserRepository _userRepository;
     private final TransactionRepository _transactionRepository;
 
