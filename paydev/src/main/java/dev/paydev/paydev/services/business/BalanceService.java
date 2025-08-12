@@ -32,9 +32,7 @@ public class BalanceService implements IBalanceService {
         User user = _userRepository.findById(userId)
                         .orElseThrow(() -> new ResourceNotFoundException("Oh no, that User haven't been found!"));
 
-        double userNewBalanceValue = user.getBalance() + ammount;
-
-        user.setBalance(userNewBalanceValue);
+        user.creditToUserBalance(ammount);
         _userRepository.save(user);
 
         return user;

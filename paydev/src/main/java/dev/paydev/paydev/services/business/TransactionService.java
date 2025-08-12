@@ -47,12 +47,8 @@ public class TransactionService implements ITransactionService {
         User userReceiver = _userRepository.findById(transaction.getUserReceiverId())
                                 .orElseThrow(() -> new ResourceNotFoundException("Oh no, User receiver not found!"));
 
-        if(transaction.getAmmount() > userSender.getBalance()) {
-            throw new TransactionExceptionHandler("Oh no, You don't have enough funds to complete this transaction");
-        }
-
-        userSender.setBalance(userSender.getBalance() - transaction.getAmmount());
-        userReceiver.setBalance(userReceiver.getBalance() + transaction.getAmmount());
+        userSender.debitToUserBalance(transaction.getAmmount());
+        userReceiver.creditToUserBalance(transaction.getAmmount());
 
         _userRepository.save(userSender);
         _userRepository.save(userReceiver);
@@ -65,10 +61,8 @@ public class TransactionService implements ITransactionService {
     }
 
     private void addNewTransaction(TransactionViewModel transaction) {
-        Transaction transactionHistory = new Transaction();
-        transactionHistory.setUserSenderId(transaction.getUserSenderId());
-        transactionHistory.setUserReceiverId(transaction.getUserReceiverId());
-        transactionHistory.setAmmount(transaction.getAmmount());
+        Transaction transactionHistory = new Transaction(
+            transaction.getUserSenderId(), transaction.getUserReceiverId(), transaction.getAmmount());
 
         _transactionRepository.save(transactionHistory);
     }

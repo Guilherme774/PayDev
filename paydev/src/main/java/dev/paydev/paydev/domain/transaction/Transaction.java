@@ -2,6 +2,7 @@ package dev.paydev.paydev.domain.transaction;
 
 import java.time.LocalDateTime;
 
+import dev.paydev.paydev.utils.exception.TransactionExceptionHandler;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -47,15 +48,11 @@ public class Transaction {
         return transactionDateTime;
     }
 
-    public void setUserSenderId(Long userSenderId) {
-        this.userSenderId = userSenderId;
-    }
-
-    public void setUserReceiverId(Long userReceiverId) {
-        this.userReceiverId = userReceiverId;
-    }
-
     public void setAmmount(double ammount) {
+        if(ammount <= 0) {
+            throw new TransactionExceptionHandler("Hey, that value is invalid to realize that transaction!");
+        }
+
         this.ammount = ammount;
     }
 }
